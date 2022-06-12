@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Products from './ProductsTableItem';
-import fetchProducts from '../../components/FetchProducts-copy'
+import fetchProducts from '../../components/FetchProducts'
 
 function ProductsTable() {
 
