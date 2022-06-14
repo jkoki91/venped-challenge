@@ -4,7 +4,7 @@ function SearchForm({
   placeholder
 }) {
   return (
-    <form className="relative" onSubmit={handlerSearch()}>
+    <form className="relative" onSubmit={()=>{}}>
       <label htmlFor="action-search" className="sr-only">Search</label>
       <input id="action-search" className="form-input pl-9 focus:border-slate-300" type="search" placeholder={placeholder} />
       <button className="absolute inset-0 right-auto group" type="submit" aria-label="Search">
