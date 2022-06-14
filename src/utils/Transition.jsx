@@ -12,7 +12,7 @@ function useIsInitialRender() {
   }, [])
   return isInitialRender.current;
 }
-
+ 
 function CSSTransition({
   show,
   enter = '',
@@ -87,6 +87,7 @@ function Transition({ show, appear, ...rest }) {
   const { parent } = useContext(TransitionContext);
   const isInitialRender = useIsInitialRender();
   const isChild = show === undefined;
+  console.log('Holaaa')
 
   if (isChild) {
     return (

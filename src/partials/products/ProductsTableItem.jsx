@@ -2,26 +2,23 @@ import React from 'react';
 
 function ProductsTableItem(props) {
 
-  const totalColor = (status) => {
-    switch (status) {
-      case 'Paid':
-        return 'text-emerald-500';
-      case 'Due':
-        return 'text-yellow-500';
-      case 'Overdue':
-        return 'text-rose-500';
-      default:
-        return 'text-slate-500';
+  const stockColor = (cant) => {
+    if(cant > 0){
+      return 'bg-emerald-100 text-emerald-600';
+    } else {
+      return 'bg-rose-100 text-rose-500';
     }
   };
 
   const statusColor = (status) => {
     switch (status) {
-      case 'Paid':
+      case 'es_general_21':
         return 'bg-emerald-100 text-emerald-600';
-      case 'Due':
+      case 'es_reduced_10':
         return 'bg-yellow-100 text-yellow-600';
-      case 'Overdue':
+      case 'es_super-reduced_4':
+        return 'bg-rose-100 text-rose-500';
+      case 'fr_general_20':
         return 'bg-rose-100 text-rose-500';
       default:
         return 'bg-slate-100 text-slate-500';
@@ -48,22 +45,21 @@ function ProductsTableItem(props) {
   return (
     <tr>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="font-medium text-sky-500">{props.product}</div>
+        <div className="font-medium text-sky-500">{props.id}</div>
+
       </td>    
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className={`font-medium ${totalColor(props.status)}`}>{props.total}</div>
+        <div className="font-medium text-sky-500">{props.product}</div>
+
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${statusColor(props.status)}`}>{props.status}</div>
+        <div className="font-medium text-sky-500">{props.total}</div>
       </td >    
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div className="font-medium text-slate-800">{props.customer}</div>
+        <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${statusColor(props.tax)}`}>{props.tax}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div>{props.issueddate}</div>
-      </td>
-      <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-        <div>{props.paiddate}</div>
+        <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${stockColor(props.stock)}`}>{props.stock}</div>
       </td>
       <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
         <div className="flex items-center">

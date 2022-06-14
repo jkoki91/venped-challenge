@@ -31,6 +31,8 @@ function DropdownFilter({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const handlerChange = (e) => {console.log('probando', e)}
+
   return (
     <div className="relative inline-flex">
       <button
@@ -61,38 +63,32 @@ function DropdownFilter({
           <ul className="mb-4">
             <li className="py-1 px-3">
               <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Direct VS Indirect</span>
+                <input type="checkbox" className="form-checkbox" name='Es_general_21' value='es_general_21' onChange={handlerChange()}/>
+                <span className="text-sm font-medium ml-2">Es_general_21</span>
               </label>
             </li>
             <li className="py-1 px-3">
               <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Real Time Value</span>
+                <input type="checkbox" className="form-checkbox" name='es_reduced_10' value='es_reduced_10' />
+                <span className="text-sm font-medium ml-2">Es_reduced_10</span>
               </label>
             </li>
             <li className="py-1 px-3">
               <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Top Channels</span>
+                <input type="checkbox" className="form-checkbox" name='es_super-reduced_4' value='es_super-reduced_4' />
+                <span className="text-sm font-medium ml-2">Es_super-reduced_4</span>
               </label>
             </li>
             <li className="py-1 px-3">
               <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Sales VS Refunds</span>
+                <input type="checkbox" className="form-checkbox" name='fr_general_20' value='fr_general_20' />
+                <span className="text-sm font-medium ml-2">Fr_general_20</span>
               </label>
             </li>
             <li className="py-1 px-3">
               <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Last Order</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="text-sm font-medium ml-2">Total Spent</span>
+                <input type="checkbox" className="form-checkbox" name='fr_reduced_5.5' value='fr_reduced_5.5' />
+                <span className="text-sm font-medium ml-2">Fr_reduced_5.5</span>
               </label>
             </li>
           </ul>
@@ -103,6 +99,7 @@ function DropdownFilter({
               </li>
               <li>
                 <button className="btn-xs bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setDropdownOpen(false)} onBlur={() => setDropdownOpen(false)}>Apply</button>
+                {/* <button className="btn-xs bg-blue-500 hover:bg-blue-600 text-white" type='submit' onBlur={() => setDropdownOpen(false)}>Apply</button> */}
               </li>
             </ul>
           </div>

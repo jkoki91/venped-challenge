@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import fetchProducts from '../../components/FetchProducts';
 import Products from './ProductsTableItem';
-import fetchProducts from '../../components/FetchProducts'
 
 function ProductsTable() {
-
+  
   const products = [
     {
       id: '0',
@@ -108,12 +108,16 @@ function ProductsTable() {
   ];
 
   const [list, setList] = useState([]);
+  const [productsList, setProductsList] = useState([]);
 
   useEffect(() => {
     setList(products);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  fetchProducts();
+
+  const productos = fetchProducts()
+
+  productos.data ? console.log( productos.data.fetchProducts.results ): 'cargando'
 
   return (
     <div className="bg-white shadow-lg rounded-sm border border-slate-200 relative">
@@ -129,50 +133,40 @@ function ProductsTable() {
             <thead className="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
               <tr>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Producto</div>
+                  <div className="font-semibold text-left">Product ID</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Total</div>
+                  <div className="font-semibold text-left">Articulo</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Estado</div>
+                  <div className="font-semibold text-left">Precio</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Cliente</div>
+                  <div className="font-semibold text-left">Impuesto</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Emitido el</div>
-                </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Pagado el</div>
-                </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Tipo</div>
+                  <div className="font-semibold text-left">Stock</div>
                 </th>
               </tr>
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-200">
-              {
-                list.map(product => {
+              { productos.data ?
+                productos.data.fetchProducts.results.map(product => {
                   return (
                     <Products
                       key={product.id}
                       id={product.id}
-                      product={product.product}
-                      total={product.total}
-                      status={product.status}
-                      customer={product.customer}
-                      issueddate={product.issueddate}
-                      paiddate={product.paiddate}
-                      type={product.type}
+                      product={product.title}
+                      total={product.price}
+                      tax={product.tax}
+                      stock={product.stock}
                     />
                   )
-                })
+                }) : '' 
               }
             </tbody>
           </table>
-
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import {
   Route,
   useLocation
 } from 'react-router-dom';
-
 import './css/style.scss';
 
 // Import pages
