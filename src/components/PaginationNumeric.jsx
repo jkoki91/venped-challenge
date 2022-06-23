@@ -10,7 +10,7 @@ function PaginationNumeric() {
               <span className="sr-only">Previous</span><wbr />
               <svg className="h-4 w-4 fill-current" viewBox="0 0 16 16">
                 <path d="M9.4 13.4l1.4-1.4-4-4 4-4-1.4-1.4L4 8z" />
-              </svg>
+              </svg> 
             </span>
           </div>
           <ul className="inline-flex text-sm font-medium -space-x-px shadow-sm">

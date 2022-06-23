@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from '../utils/Transition';
+import '../css/additional-styles/dropdown-filter.css';
 
 function DropdownFilter({
   align
 }) {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [taxFilters, setTaxFilters] = useState([]);
+  const [pageFilters, setPageFilters] = useState(5);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -31,7 +34,25 @@ function DropdownFilter({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const handlerChange = (e) => {console.log('probando', e)}
+  const handlerChange = (e) => {
+    e.preventDefault();
+    setTaxFilters([]);
+
+    for (let i = 0; i < 5; i++) {
+      if (e.target[i].checked) {
+        console.log(e.target[i].value)
+        // setTaxFilters(taxFilters.push(e.target[i].value))
+        setTaxFilters(...taxFilters, e.target[i].value)
+      };
+    };
+    for (let i = 5; i < 7; i++) {
+      if (e.target[i].checked) {
+        // console.log(e.target[i].value)
+        setPageFilters(e.target[i].value);
+      };
+    };
+    console.log(taxFilters);
+  };
 
   return (
     <div className="relative inline-flex">
@@ -42,10 +63,7 @@ function DropdownFilter({
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <span className="sr-only">Filter</span><wbr />
-        <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
-          <path d="M9 15H7a1 1 0 010-2h2a1 1 0 010 2zM11 11H5a1 1 0 010-2h6a1 1 0 010 2zM13 7H3a1 1 0 010-2h10a1 1 0 010 2zM15 3H1a1 1 0 010-2h14a1 1 0 010 2z" />
-        </svg>
+        Filters
       </button>
       <Transition
         show={dropdownOpen}
@@ -58,52 +76,73 @@ function DropdownFilter({
         leaveStart="opacity-100"
         leaveEnd="opacity-0"
       >
-        <div ref={dropdown}>
-          <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Filters</div>
-          <ul className="mb-4">
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" name='Es_general_21' value='es_general_21' onChange={handlerChange()}/>
-                <span className="text-sm font-medium ml-2">Es_general_21</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" name='es_reduced_10' value='es_reduced_10' />
-                <span className="text-sm font-medium ml-2">Es_reduced_10</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" name='es_super-reduced_4' value='es_super-reduced_4' />
-                <span className="text-sm font-medium ml-2">Es_super-reduced_4</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" name='fr_general_20' value='fr_general_20' />
-                <span className="text-sm font-medium ml-2">Fr_general_20</span>
-              </label>
-            </li>
-            <li className="py-1 px-3">
-              <label className="flex items-center">
-                <input type="checkbox" className="form-checkbox" name='fr_reduced_5.5' value='fr_reduced_5.5' />
-                <span className="text-sm font-medium ml-2">Fr_reduced_5.5</span>
-              </label>
-            </li>
-          </ul>
+        <form onSubmit={handlerChange}>
+          <div id='dropdown__menu' ref={dropdown}>
+            <div>
+              <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Filters</div>
+              <ul className="mb-4">
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="form-checkbox" name='es_general_21' value='es_general_21' />
+                    <span className="text-sm font-medium ml-2">Es_general_21</span>
+                  </label>
+                </li>
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="form-checkbox" name='es_reduced_10' value='es_reduced_10' />
+                    <span className="text-sm font-medium ml-2">Es_reduced_10</span>
+                  </label>
+                </li>
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="form-checkbox" name='es_super-reduced_4' value='es_super-reduced_4' />
+                    <span className="text-sm font-medium ml-2">Es_super-reduced_4</span>
+                  </label>
+                </li>
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="form-checkbox" name='fr_general_20' value='fr_general_20' />
+                    <span className="text-sm font-medium ml-2">Fr_general_20</span>
+                  </label>
+                </li>
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="checkbox" className="form-checkbox" name='fr_reduced_5.5' value='fr_reduced_5.5' />
+                    <span className="text-sm font-medium ml-2">Fr_reduced_5.5</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Results per page</div>
+              <ul className="mb-4">
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input defaultChecked type="radio" className="form-checkbox" name='items' value={5} />
+                    <span className="text-sm font-medium ml-2">5_Items</span>
+                  </label>
+                </li>
+                <li className="py-1 px-3">
+                  <label className="flex items-center">
+                    <input type="radio" className="form-checkbox" name='items' value={10} />
+                    <span className="text-sm font-medium ml-2">10_Items</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div className="py-2 px-3 border-t border-slate-200 bg-slate-50">
             <ul className="flex items-center justify-between">
               <li>
                 <button className="btn-xs bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600">Clear</button>
               </li>
               <li>
-                <button className="btn-xs bg-blue-500 hover:bg-blue-600 text-white" onClick={() => setDropdownOpen(false)} onBlur={() => setDropdownOpen(false)}>Apply</button>
-                {/* <button className="btn-xs bg-blue-500 hover:bg-blue-600 text-white" type='submit' onBlur={() => setDropdownOpen(false)}>Apply</button> */}
+                <button className="btn-xs bg-blue-500 hover:bg-blue-600 text-white" type='submit' onClick={() => setDropdownOpen(false)} onBlur={() => setDropdownOpen(false)}>Apply</button>
               </li>
             </ul>
           </div>
-        </div>
+        </form>
+
       </Transition>
     </div>
   );

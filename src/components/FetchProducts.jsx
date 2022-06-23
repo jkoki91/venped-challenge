@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 // import { productsContext } from "../context/products-context";
 
 
-function fetchProducts(props) {
+function fetchProducts(title) {
     // const [ productsList, setProductsList ]= useContext(productsContext)
     const [ productsList, setProductsList ]= useState([])
 
@@ -40,7 +40,7 @@ function fetchProducts(props) {
     `;
     const variables = {
         tax_filter: ["es_general_21", "es_reduced_10"],
-        title_filter: "fanta",
+        title_filter: title,
         order_by: "price",
         order: "desc",
         page: 2,
@@ -60,10 +60,9 @@ function fetchProducts(props) {
         })
             .then(r => r.json())
             .then(data => {
-                // console.log(data);
                 setProductsList(data);
             })
-    },[]) 
+    },[title]) 
 
     return productsList;
 };

@@ -1,123 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import fetchProducts from '../../components/FetchProducts';
 import Products from './ProductsTableItem';
 
-function ProductsTable() {
+function ProductsTable(props) {
   
-  const products = [
-    {
-      id: '0',
-      product: '#123567',
-      total: '$129.00',
-      status: 'Overdue',
-      customer: 'Dominik Lamakani',
-      issueddate: '22/07/2021',
-      paiddate: '-',
-      type: 'Subscription',
-    },
-    {
-      id: '1',
-      product: '#779912',
-      total: '$59.00',
-      status: 'Paid',
-      customer: 'Mark Cameron',
-      issueddate: '19/07/2021',
-      paiddate: '20/07/2021',
-      type: 'Subscription',
-    },
-    {
-      id: '2',
-      product: '#889924',
-      total: '$89.00',
-      status: 'Paid',
-      customer: 'Sergio Gonnelli',
-      issueddate: '17/07/2021',
-      paiddate: '19/07/2021',
-      type: 'One-time',
-    },
-    {
-      id: '3',
-      product: '#897726',
-      total: '$129.00',
-      status: 'Due',
-      customer: 'Manuel Garbaya',
-      issueddate: '04/07/2021',
-      paiddate: '-',
-      type: 'Subscription',
-    },
-    {
-      id: '4',
-      product: '#123567',
-      total: '$129.00',
-      status: 'Due',
-      customer: 'Cool Robot',
-      issueddate: '04/07/2021',
-      paiddate: '-',
-      type: 'Subscription',
-    },
-    {
-      id: '5',
-      product: '#896644',
-      total: '$129.00',
-      status: 'Paid',
-      customer: 'Mark Cameron',
-      issueddate: '04/07/2021',
-      paiddate: '09/07/2021',
-      type: 'One-time',
-    },
-    {
-      id: '6',
-      product: '#136988',
-      total: '$69.00',
-      status: 'Paid',
-      customer: 'Glenn Thomas',
-      issueddate: '01/07/2021',
-      paiddate: '01/07/2021',
-      type: 'One-time',
-    },
-    {
-      id: '7',
-      product: '#442206',
-      total: '$129.00',
-      status: 'Overdue',
-      customer: 'Dominik Lamakani',
-      issueddate: '22/06/2021',
-      paiddate: '-',
-      type: 'Subscription',
-    },
-    {
-      id: '8',
-      product: '#764321',
-      total: '$89.00',
-      status: 'Paid',
-      customer: 'Brian Halligan',
-      issueddate: '21/06/2021',
-      paiddate: '29/06/2021',
-      type: 'One-time',
-    },
-    {
-      id: '9',
-      product: '#908764',
-      total: '$129.00',
-      status: 'Due',
-      customer: 'Carolyn McNeail',
-      issueddate: '17/06/2021',
-      paiddate: '-',
-      type: 'Subscription',
-    }
-  ];
-
   const [list, setList] = useState([]);
   const [productsList, setProductsList] = useState([]);
 
   useEffect(() => {
-    setList(products);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setList([]);
   }, []);
 
-  const productos = fetchProducts()
-
-  productos.data ? console.log( productos.data.fetchProducts.results ): 'cargando'
+  // console.log(props.products, 'Desde Table')
 
   return (
     <div className="bg-white shadow-lg rounded-sm border border-slate-200 relative">
@@ -151,8 +44,8 @@ function ProductsTable() {
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-200">
-              { productos.data ?
-                productos.data.fetchProducts.results.map(product => {
+              {
+              props.products.map(product => {
                   return (
                     <Products
                       key={product.id}
@@ -163,7 +56,7 @@ function ProductsTable() {
                       stock={product.stock}
                     />
                   )
-                }) : '' 
+                })
               }
             </tbody>
           </table>
